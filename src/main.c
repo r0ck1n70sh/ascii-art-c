@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-int CHAR_WIDTH  = 12;
+int CHAR_WIDTH  = 13;
 int CHAR_HEIGHT = 6;
 
 char** read_ascii_char (int);
@@ -11,21 +11,27 @@ char** initialize_buffer (void);
 
 int main () {
     char input [] = "WALL-E";
-    char buffer [1000][6];
+    char buffer [6][1000];
 
-    int i, idx, ch;
+    int i;
+    for (i = 0; i < CHAR_HEIGHT; i++) {
+        memset(buffer[i], 0, 1000 * sizeof(char));
+    }
+
+    int idx, ch;
     char** ascii_str;
 
     for (idx = 0; idx < strlen(input); idx++) {
         ch = input[idx];
         ascii_str = read_ascii_char (ch);
 
+        /*  --  debugging  --
         for (i = 0; i < CHAR_HEIGHT; i++) {
             printf("%s\n", ascii_str[i]);
-        }
+        } */
 
         for (i = 0; i < CHAR_HEIGHT; i++) {
-            strcpy (buffer[i], ascii_str[i]);
+            strncat (buffer[i], ascii_str[i], CHAR_WIDTH);
         }
     }
 
@@ -70,7 +76,7 @@ char** initialize_buffer () {
     
     for (int i = 0; i < CHAR_HEIGHT; i++) {
         char* line = malloc(CHAR_WIDTH * sizeof(char));
-        // memset(line, ' ', CHAR_WIDTH * sizeof(char));  
+        memset(line, 0, CHAR_WIDTH * sizeof(char));
 
         buffer[i] = line;
     }
