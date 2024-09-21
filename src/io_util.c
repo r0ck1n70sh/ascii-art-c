@@ -1,18 +1,15 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <constants.h>
 #include <io_util.h>
 
-
-int CHAR_WIDTH  = 13;
-int CHAR_HEIGHT = 6;
-
 char** initialize_buffer () {
-    char** buffer = malloc(CHAR_HEIGHT * sizeof(char *));
+    char** buffer = malloc(ASCII_ART_CHAR_HEIGHT * sizeof(char *));
     
-    for (int i = 0; i < CHAR_HEIGHT; i++) {
-        char* line = malloc(CHAR_WIDTH * sizeof(char));
-        memset(line, 0, CHAR_WIDTH * sizeof(char));
+    for (int i = 0; i < ASCII_ART_CHAR_HEIGHT; i++) {
+        char* line = malloc(ASCII_ART_CHAR_WIDTH * sizeof(char));
+        memset(line, 0, ASCII_ART_CHAR_WIDTH * sizeof(char));
 
         buffer[i] = line;
     }
@@ -32,7 +29,7 @@ char** read_ascii_char (int ascii_key) {
     char curr_ch;
     int i = 0, j = 0;
 
-    while (i < CHAR_HEIGHT && j < CHAR_WIDTH) {
+    while (i < ASCII_ART_CHAR_HEIGHT && j < ASCII_ART_CHAR_WIDTH) {
         curr_ch = fgetc(file_ptr);
 
         if (curr_ch == EOF) {
